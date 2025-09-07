@@ -16,6 +16,7 @@ const users = [
 
 // Dom Elements
 const namesList = document.querySelector("#names-list");
+const youngCharactersList = document.querySelector("#young-characters-list");
 
 // broken test data for exercise 6
 
@@ -31,6 +32,15 @@ const namesList = document.querySelector("#names-list");
 // I am scoping them into an IIFE because i want to use the html variable multiple times without having to empty it every time.
 
 // 2. Print out the names of characters whose age is less than 40 in the console, then render them in the HTML list with id "young-characters-list"
+(function () {
+  let html = ``;
+  const filteredUsers = users.filter((user) => user.age < 40);
+  filteredUsers.forEach((user) => {
+    console.log(user.name);
+    html += `<li>${user.name}</li>`;
+  });
+  youngCharactersList.innerHTML = html;
+})();
 
 // 3. Create a reusable function that takes any array and uses logic to render a list of character names in the HTML. Use this function to populate the list with id "function-list"
 
