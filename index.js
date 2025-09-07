@@ -17,6 +17,7 @@ const users = [
 // Dom Elements
 const namesList = document.querySelector("#names-list");
 const youngCharactersList = document.querySelector("#young-characters-list");
+const functionList = document.querySelector("#function-list");
 
 // broken test data for exercise 6
 
@@ -43,6 +44,15 @@ const youngCharactersList = document.querySelector("#young-characters-list");
 })();
 
 // 3. Create a reusable function that takes any array and uses logic to render a list of character names in the HTML. Use this function to populate the list with id "function-list"
+const listPopulator = function (array) {
+  let html = ``;
+  array.forEach((item) => {
+    console.log(item.name);
+    html += `<li>${item.id}. ${item.name}</li>`;
+  });
+  functionList.innerHTML = html;
+};
+listPopulator(users);
 
 // 4. Create a function that takes an array and an age threshold parameter. The function should only display characters whose age is below the given number. Render results in the list with id "age-filter-list"
 
