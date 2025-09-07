@@ -2,7 +2,7 @@
 
 // sample data - expanded Star Wars characters with varied ages
 const users = [
-  { id: 1, name: "Luke Skywalker" age: 23 },
+  { id: 1, name: "Luke Skywalker", age: 23 },
   { id: 2, name: "Darth Vader", age: 45 },
   { id: 3, name: "Princess Leia", age: 23 },
   { id: 4, name: "Obi-Wan Kenobi", age: 57 },
@@ -14,9 +14,21 @@ const users = [
   { id: 10, name: "Padmé Amidala", age: 27 },
 ];
 
+// Dom Elements
+const namesList = document.querySelector("#names-list");
+
 // broken test data for exercise 6
 
 // 1. Print out the names of each character in the console, then render them in the HTML list with id "names-list"
+(function () {
+  let html = ``;
+  users.forEach((user) => {
+    console.log(user.name);
+    html += `<li>${user.name}</li>`;
+  });
+  namesList.innerHTML = html;
+})();
+// I am scoping them into an IIFE because i want to use the html variable multiple times without having to empty it every time.
 
 // 2. Print out the names of characters whose age is less than 40 in the console, then render them in the HTML list with id "young-characters-list"
 
