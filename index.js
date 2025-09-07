@@ -21,6 +21,15 @@ const functionList = document.querySelector("#function-list");
 const ageFilterList = document.querySelector("#age-filter-list");
 
 // broken test data for exercise 6
+const brokenUsers = [
+  { id: 1, name: "Luke Skywalker", age: 23 },
+  { id: 2, name: "Darth Vader", age: 45 },
+  { id: 3, age: 23 },
+  { id: 4, name: "Obi-Wan Kenobi", age: 57 },
+  { id: 5, name: "Yoda", age: 900 },
+  { id: 6, age: 32 },
+  { id: 7, name: "Chewbacca", age: 234 },
+];
 
 // 1. Print out the names of each character in the console, then render them in the HTML list with id "names-list"
 (function () {
