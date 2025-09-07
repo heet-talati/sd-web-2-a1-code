@@ -18,6 +18,7 @@ const users = [
 const namesList = document.querySelector("#names-list");
 const youngCharactersList = document.querySelector("#young-characters-list");
 const functionList = document.querySelector("#function-list");
+const ageFilterList = document.querySelector("#age-filter-list");
 
 // broken test data for exercise 6
 
@@ -55,6 +56,37 @@ const listPopulator = function (array) {
 listPopulator(users);
 
 // 4. Create a function that takes an array and an age threshold parameter. The function should only display characters whose age is below the given number. Render results in the list with id "age-filter-list"
+
+// Just some fun code
+(function () {
+  ageFilterList.innerHTML =
+    "<li><button id='age-filter-button'>Click To Enter Age</button></li>";
+  const ageFilterButton = document.querySelector("#age-filter-button");
+  ageFilterButton.style.cursor = "pointer";
+  ageFilterButton.style.border = "none";
+  ageFilterButton.style.borderRadius = "4px";
+  ageFilterButton.style.background = "lightgray";
+  ageFilterButton.style.padding = "8px 16px";
+  ageFilterButton.addEventListener("click", () => {
+    const maxAge = Number(prompt("Enter Maximum Characrer Age: "));
+    ageFilterListPopulator(users, maxAge);
+  });
+})();
+
+function ageFilterListPopulator(array, maxAge) {
+  let html = ``;
+  const filteredUsers = array.filter((item) => item.age < maxAge);
+  filteredUsers.forEach((user) => {
+    html += `<li>${user.name} : ${user.age}</li>`;
+  });
+  console.log(filteredUsers, filteredUsers.length);
+  if (filteredUsers.length === 0) {
+    ageFilterList.innerHTML = `<li>No Characters below the age of ${maxAge} found</li>`;
+    return;
+  }
+
+  ageFilterList.innerHTML = html;
+}
 
 // 5. Add error handling to your functions that will log an error message using console.error() if any object doesn't have a "name" property. Display any error messages in the div with id "error-messages"
 
