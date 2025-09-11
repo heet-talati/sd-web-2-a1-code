@@ -19,6 +19,8 @@ const namesList = document.querySelector("#names-list");
 const youngCharactersList = document.querySelector("#young-characters-list");
 const functionList = document.querySelector("#function-list");
 const ageFilterList = document.querySelector("#age-filter-list");
+const errorHandlingList = document.querySelector("#error-handling-list");
+const errorMessages = document.querySelector("#error-messages");
 
 // broken test data for exercise 6
 const brokenUsers = [
@@ -54,15 +56,35 @@ const brokenUsers = [
 })();
 
 // 3. Create a reusable function that takes any array and uses logic to render a list of character names in the HTML. Use this function to populate the list with id "function-list"
-const listPopulator = function (array) {
+const listPopulator = function (array, listElement, errorListElement) {
+  let errorList = [];
   let html = ``;
-  array.forEach((item) => {
+  array.forEach((item, index) => {
     console.log(item.name);
+
+    if (item.name === undefined) {
+      errorList.push(
+        new Error(
+          `Object at index ${index} does not have a valid 'name' property`
+        )
+      );
+      // html += `<li class="error-message">Object does not have a valid 'name' property</li>`;
+    }
     html += `<li>${item.id}. ${item.name}</li>`;
   });
-  functionList.innerHTML = html;
+  listElement.innerHTML = html;
+
+  if (errorList) {
+    errorList.forEach((error) => console.error(error));
+    errorList.forEach((error) => {
+      let div = document.createElement("div");
+      div.classList.add("error-message");
+      div.textContent = error;
+      errorListElement.appendChild(div);
+    });
+  }
 };
-listPopulator(users);
+listPopulator(users, functionList, errorMessages);
 
 // 4. Create a function that takes an array and an age threshold parameter. The function should only display characters whose age is below the given number. Render results in the list with id "age-filter-list"
 
@@ -99,4 +121,13 @@ function ageFilterListPopulator(array, maxAge) {
 
 // 5. Add error handling to your functions that will log an error message using console.error() if any object doesn't have a "name" property. Display any error messages in the div with id "error-messages"
 
+// Added Error Handling to Exercise 3
+listPopulator(brokenUsers, errorHandlingList, errorMessages);
+
 // 6. Test your error handling by creating a second array that's intentionally broken (missing name properties) and passing it to your functions. Verify that your error handling works correctly and displays errors in the div with id "broken-array-errors"
+
+listPopulator(
+  brokenUsers,
+  document.getElementById("broken-array-list"),
+  document.getElementById("broken-array-errors")
+);
