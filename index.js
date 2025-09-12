@@ -65,7 +65,7 @@ const listPopulator = function (array, listElement, errorListElement) {
     if (item.name === undefined) {
       errorList.push(
         new Error(
-          `Object at index ${index} does not have a valid 'name' property`
+          `Object at <code>index ${index}</code> does not have a valid <code>'name'</code> property`
         )
       );
       // html += `<li class="error-message">Object does not have a valid 'name' property</li>`;
@@ -77,11 +77,18 @@ const listPopulator = function (array, listElement, errorListElement) {
   if (errorList) {
     errorList.forEach((error) => console.error(error));
     errorList.forEach((error) => {
-      let div = document.createElement("div");
-      div.classList.add("error-message");
-      div.textContent = error;
-      errorListElement.appendChild(div);
+      let p = document.createElement("p");
+      p.classList.add("error-message");
+      p.innerHTML = error;
+      errorListElement.appendChild(p);
     });
+  }
+
+  if ((errorList = [])) {
+    let p = document.createElement("p");
+    p.classList.add("success");
+    p.textContent = "The code ran successfully. No errors were found!";
+    errorListElement.appendChild(p);
   }
 };
 listPopulator(users, functionList, errorMessages);
@@ -127,7 +134,7 @@ listPopulator(brokenUsers, errorHandlingList, errorMessages);
 // 6. Test your error handling by creating a second array that's intentionally broken (missing name properties) and passing it to your functions. Verify that your error handling works correctly and displays errors in the div with id "broken-array-errors"
 
 listPopulator(
-  brokenUsers,
+  users,
   document.getElementById("broken-array-list"),
   document.getElementById("broken-array-errors")
 );
